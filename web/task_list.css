@@ -1,0 +1,21 @@
+#task-list {
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+#task-list li {
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+#task-list li.completed {
+  text-decoration: line-through;
+  font-style: italic;
+}

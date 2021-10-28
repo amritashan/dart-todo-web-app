@@ -1,8 +1,9 @@
 import 'dart:html';
-import 'task_list.dart';
 
-LIElement createNewLiElement(String itemText) => LIElement()..text = itemText;
-TaskList taskList = TaskList();
+import 'task_list.view.dart';
+import 'task.dart';
+
+TaskListView taskListView = TaskListView();
 
 late final InputElement newTaskInputElement;
 late final ButtonElement addTaskButtonElement;
@@ -18,14 +19,19 @@ void main() {
 
 void initializeList() {
   addTaskButtonElement.onClick.listen((event) {
-    final String task = newTaskInputElement.value!;
+    final String title = newTaskInputElement.value!;
 
-    if (task.trim() != '') {
-      taskList.addTask(task);
+    if (title.trim() != '') {
+      taskListView.addTask(title, onTaskAction);
       updateTaskList();
       clearInput();
     }
   });
+}
+
+void onTaskAction(Task task) {
+  taskListView.setTaskState(task, !task.isCompleted);
+  updateTaskList();
 }
 
 void updateTaskList() {
@@ -33,7 +39,9 @@ void updateTaskList() {
     listArea.lastChild?.remove();
   }
 
-  listArea.children.addAll(taskList.task.map(createNewLiElement));
+  final renderedItems = taskListView.renderTaskLists();
+
+  listArea.children.addAll(renderedItems);
 }
 
 void clearInput() {
