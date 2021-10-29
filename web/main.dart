@@ -1,36 +1,48 @@
 import 'dart:html';
 
-import 'task_list.view.dart';
-import 'task.dart';
+import 'task-list/task_list.view.dart';
+import 'types/task.dart';
 
 TaskListView taskListView = TaskListView();
 
 late final InputElement newTaskInputElement;
-late final ButtonElement addTaskButtonElement;
+late final InputElement addTaskButtonElement;
 late final UListElement listArea;
+late final FormElement todoFormElement;
 
 void main() {
   newTaskInputElement = querySelector('#new-task') as InputElement;
-  addTaskButtonElement = querySelector('#add-task') as ButtonElement;
   listArea = querySelector('#task-list') as UListElement;
+  todoFormElement = querySelector('#todo-form') as FormElement;
 
-  initializeList();
+  initializeForm();
 }
 
-void initializeList() {
-  addTaskButtonElement.onClick.listen((event) {
-    final String title = newTaskInputElement.value!;
-
-    if (title.trim() != '') {
-      taskListView.addTask(title, onTaskAction);
-      updateTaskList();
-      clearInput();
-    }
-  });
+void initializeForm() {
+  todoFormElement.onSubmit.listen(addTask);
 }
 
-void onTaskAction(Task task) {
+void addTask(Event event) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  final String title = newTaskInputElement.value!;
+
+  if (title.trim() != '') {
+    taskListView.addTask(title, onTaskStateSet, onTaskDelete);
+    updateTaskList();
+    clearInput();
+    newTaskInputElement.focus();
+  }
+}
+
+void onTaskStateSet(Task task) {
   taskListView.setTaskState(task, !task.isCompleted);
+  updateTaskList();
+}
+
+void onTaskDelete(Task task) {
+  taskListView.removeTask(task);
   updateTaskList();
 }
 
@@ -39,7 +51,7 @@ void updateTaskList() {
     listArea.lastChild?.remove();
   }
 
-  final renderedItems = taskListView.renderTaskLists();
+  final renderedItems = taskListView.render();
 
   listArea.children.addAll(renderedItems);
 }

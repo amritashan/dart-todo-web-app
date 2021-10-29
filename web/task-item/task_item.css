@@ -1,0 +1,40 @@
+.task-item {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  height: 50px;
+}
+
+.task-action-container {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex: 9;
+}
+
+.delete-task {
+  font-size: 14px;
+  text-decoration: underline;
+  color: rgb(124, 0, 0);
+  background-color: #ffe1e1;
+  cursor: pointer;
+  visibility: hidden;
+  margin-left: 10px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-item.completed .task-action-container {
+  text-decoration: line-through;
+  font-style: italic;
+}
+
+.task-item:hover {
+  background-color: #FCFCFC;
+}
+
+.task-item:hover .delete-task {
+  visibility: visible;
+}

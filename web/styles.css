@@ -19,17 +19,18 @@ body {
   display: flex;
   flex-flow: row;
   gap: 20px;
+  align-items: stretch;
+  height: 50px;
 }
 
 .user-input input {
-  height: 50px;
   font-size: 25px;
   flex: 9;
   padding-right: 20px;
   padding-left: 20px;
 }
 
-.user-input button {
+.user-input input[type='submit'] {
   flex: 1;
   font-size: 20px;
 }

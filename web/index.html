@@ -8,16 +8,19 @@
     <meta name="scaffolded-by" content="https://github.com/dart-lang/sdk">
     <title>ToDo List</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="task_list.css">
+    <link rel="stylesheet" href="task-list/task_list.css">
+    <link rel="stylesheet" href="task-item/task_item.css">
     <script defer src="main.dart.js"></script>
 </head>
 
 <body>
 
-  <div class="user-input">
-    <input type="text" name="new-task" id="new-task" value="" placeholder="What do you want to do?" />
-    <button id="add-task">Add Task</button>
-  </div>
+  <form id="todo-form">
+    <div class="user-input">
+      <input type="text" name="new-task" id="new-task" value="" placeholder="What do you want to do?" />
+      <input type="submit" id="add-task" value="Add Task" />
+    </div>
+  </form>
 
   <div>
     <h1>My To Do List</h1>
